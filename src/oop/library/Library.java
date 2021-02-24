@@ -13,20 +13,20 @@ public class Library {
 		return this.items.add(item);
 	}
 
-	public boolean removeItem(int itemId) {
+	public boolean removeItem(int itemId) throws ItemNotFoundException {
 		return this.items.remove(this.getItemById(itemId));
 	}
 
-	public Item getItemById(int itemId) {
+	public Item getItemById(int itemId) throws ItemNotFoundException {
 		for (Item i : this.items) {
 			if (i.getId() == itemId) {
 				return i;
 			}
 		}
-		return null;
+		throw new ItemNotFoundException();
 	}
 
-	public boolean returnItem(int itemId, int memberId) {
+	public boolean returnItem(int itemId, int memberId) throws ItemNotFoundException {
 		Item itemToReturn = this.getItemById(itemId);
 		Member memberReturning = this.getMemberById(memberId);
 
@@ -39,7 +39,7 @@ public class Library {
 		return true;
 	}
 
-	public boolean checkOutItem(int itemId, int memberId) {
+	public boolean checkOutItem(int itemId, int memberId) throws ItemNotFoundException {
 		Item itemToCheckOut = this.getItemById(itemId);
 		Member memberCheckingOut = this.getMemberById(memberId);
 
@@ -62,7 +62,7 @@ public class Library {
 				return m;
 			}
 		}
-		return null;
+		throw new MemberNotFoundException();
 	}
 
 	public boolean removeMember(int memberId) {
